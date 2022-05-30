@@ -7,7 +7,9 @@ const store = new Vuex.Store({
     state () {
         return {
             count: 0,
-            nightState:false
+            nightState:false,
+            Blogs:[],
+            blog:Object
         }
     },
     mutations: {
@@ -16,6 +18,9 @@ const store = new Vuex.Store({
         },
         nightBtn(){
             this.state.nightState = !this.state.nightState;
+        },
+        saveAllBlog(state,blogs){
+            state.Blogs=blogs
         }
     }
 })

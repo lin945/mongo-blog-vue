@@ -4,17 +4,16 @@
       <h4>title</h4>
     </div>
     <nav class="head-menu">
-      <a href="https://www.bilibili.asia/">首页</a>
-      <a href="">关于</a>
-      <a href="https://www.bilibili.asia/index.php/3.html">友链</a>
-      <a href="https://www.bilibili.asia/admin/" target="_blank">进入后台</a>
+      <router-link to="/home" exact-active-class="active-a" >首页</router-link>
+      <router-link to="/about" active-class="active-a">关于</router-link>
+      <router-link to="#" active-class="active-a">友链</router-link>
+      <router-link to="_blank" active-class="active-a">进入后台</router-link>
     </nav>
     <div class="head-box">
       <div class="head-box-btn1"></div>
-      <div class="head-box-btn2" id="light-btn"  ><i v-on:click="nightBtn" class="fa fa-spin fa-moon-o" aria-hidden="true"></i></div>
+      <div class="head-box-btn2" id="light-btn"  ><i v-on:click="nightBtn" class="el-icon-sunny" aria-hidden="true"></i></div>
       <div class="head-box-btn3">bb</div>
     </div>
-<!--    <canvas class="fire-canvas" id="fireworks"></canvas>-->
   </header>
 </template>
 
@@ -23,6 +22,7 @@ export default {
   name: "MainHeader",
   methods:{
     nightBtn() {
+      // this.$message('主题切换成功！');
       this.$store.commit("nightBtn")
     }
   }
@@ -70,26 +70,34 @@ export default {
     /*line-height: 1em;*/
     border-bottom: 1px solid #ddd;
     border-bottom-color: var(--border);
-    background: var(--light-background);;
+    background: var(--light-background);
     transition: border-color .3s, background .3s;
   }
 
+.active-a{
+  color: var(--blue)!important;
+}
   .head-menu {
     display: flex;
     justify-content: center;
+    z-index: 1;
   }
+
 
   .head-title {
     position: absolute;
     left: 0;
     right: 0;
     text-align: center;
+    z-index: 1;
+    margin-top: 1em;
   }
 
   .head-box {
     line-height: 3.2em;
     padding-bottom: 0.5em;
     position: relative;
+
   }
 
   .head-box-btn1 {
@@ -104,6 +112,7 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 1;
   }
 
   .head-box-btn3 {
@@ -115,7 +124,7 @@ export default {
   }
 
   .head-menu a {
-    color: inherit;
+    color: var(--text-color);
     display: block;
   }
 
