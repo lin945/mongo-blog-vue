@@ -2,7 +2,7 @@
   <el-container>
     <el-header><MainHeader></MainHeader></el-header>
       <el-main class="main_root">
-        <keep-alive>
+        <keep-alive exclude="home">
         <router-view/>
         </keep-alive>
       </el-main>

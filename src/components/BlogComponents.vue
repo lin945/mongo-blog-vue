@@ -44,8 +44,7 @@ export default {
   },
   methods: {
     onCl() {
-      this.$router.push({name: 'Blog', params: {id: this.blogdata.id}})
-      console.log("router"+this.blogdata)
+      this.$router.push({name: 'Blog', query: {id: this.blogdata.id}})
     }
   }
 }

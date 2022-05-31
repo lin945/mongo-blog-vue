@@ -65,6 +65,9 @@ import BlogModel from "@/model/BlogModel";
 export default {
   name: "MainBlogInfo",
   components: {},
+  props:{
+    id: String
+  },
   created() {
       this.loadBlog()
   },
@@ -114,7 +117,7 @@ export default {
       });
     },
     loadBlog() {
-      let id = this.$route.params.id;
+      let id = this.id;
       console.log(id)
       BlogModel.getBlogById(id).then(data=>{
         console.log(data)

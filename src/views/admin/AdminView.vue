@@ -4,7 +4,7 @@
       <MainHeader></MainHeader>
     </el-header>
     <el-main class="main_root">
-      <keep-alive>
+      <keep-alive exclude="Blog">
         <router-view/>
       </keep-alive>
     </el-main>

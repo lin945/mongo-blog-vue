@@ -24,9 +24,13 @@ const routes = [
                 path: '/about',
                 component: MainAbout,
             }, {
-                path: '/blog/:id',
+                path: '/blog',
                 name: 'Blog',
-                component: MainBlogInfo
+                component: MainBlogInfo,
+                props: route => ({ id: route.query.id }),
+                meta:{
+                    keepAlive:false
+                }
             },
             {
                 path: '/404',
