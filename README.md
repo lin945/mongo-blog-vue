@@ -1,5 +1,12 @@
 # vue-blog
 
+本项目是前后端分离项目,
+
+## 准备
+在开始前
+
+## 1.配置
+> 修改.env.development和.env.production
 ## Project setup
 ```
 npm install

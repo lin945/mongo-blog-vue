@@ -2,7 +2,8 @@
   <el-container>
     <el-header><MainHeader></MainHeader></el-header>
       <el-main class="main_root">
-        <keep-alive exclude="home">
+<!--        排除博客详情组件，否则组件不刷新-->
+        <keep-alive exclude="MainBlogInfo">
         <router-view/>
         </keep-alive>
       </el-main>
