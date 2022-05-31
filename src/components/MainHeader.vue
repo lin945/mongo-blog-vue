@@ -7,7 +7,7 @@
       <router-link to="/home" exact-active-class="active-a" >首页</router-link>
       <router-link to="/about" active-class="active-a">关于</router-link>
       <router-link to="#" active-class="active-a">友链</router-link>
-      <router-link to="_blank" active-class="active-a">进入后台</router-link>
+      <router-link to="/admin" active-class="active-a">进入后台</router-link>
     </nav>
     <div class="head-box">
       <div class="head-box-btn1"></div>
