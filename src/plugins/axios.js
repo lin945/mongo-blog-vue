@@ -2,7 +2,7 @@
  * 封装 axios
  */
 import axios from 'axios'
-
+import { Message } from 'element-ui';
 
 const config = {
   baseURL: process.env.VUE_APP_BASE_URL || '',
@@ -21,6 +21,88 @@ const config = {
 // 创建请求实例
 const _axios = axios.create(config)
 
+_axios.interceptors.request.use(
+    originConfig => {
+      const reqConfig = { ...originConfig }
+
+      // step2: permission 处理
+      // if(reqConfig.url!=null&&reqConfig.url.contains('admin')&&reqConfig.url!=="admin/login") {
+      //   const accessToken = localStorage.getItem('access_token')
+      //   if (accessToken) {
+      //     reqConfig.headers.Authorization = accessToken
+      //   }
+      // }
+
+      return reqConfig
+    },
+    error => Promise.reject(error),
+)
+
+// Add a response interceptor
+_axios.interceptors.response.use(
+    async res => {
+      const { code,message } = res.data
+      if (res.status.toString().charAt(0) === '2'&&code!=null&&code===200) {
+        return res.data
+      }
+      return new Promise( (resolve, reject) => {
+        let tipMessage = ''
+        // const { url } = res.config
+
+        // refresh_token 异常，直接登出
+        // if (refreshTokenException(code)) {
+        //   setTimeout(() => {
+        //     store.dispatch('loginOut')
+        //     const { origin } = window.location
+        //     window.location.href = origin
+        //   }, 1500)
+        //   return resolve(null)
+        // }
+        // // assessToken相关，刷新令牌
+        // if (code === 10041 || code === 10051) {
+        //   const cache = {}
+        //   if (cache.url !== url) {
+        //     cache.url = url
+        //     const refreshResult = await _axios('cms/user/refresh')
+        //     saveAccessToken(refreshResult.access_token)
+        //     // 将上次失败请求重发
+        //     const result = await _axios(res.config)
+        //     return resolve(result)
+        //   }
+        // }
+
+        // 弹出信息提示的第一种情况：直接提示后端返回的异常信息（框架默认为此配置）；
+        // 特殊情况：如果本次请求添加了 handleError: true，用户自行通过 try catch 处理，框架不做额外处理
+        if (res.config.handleError) {
+          return reject(res)
+        }
+
+        if (typeof message === 'string') {
+          tipMessage = message
+        }
+        if (Object.prototype.toString.call(message) === '[object Object]') {
+          [tipMessage] = Object.values(message).flat()
+        }
+        if (Object.prototype.toString.call(message) === '[object Array]') {
+          [tipMessage] = message
+        }
+        Message.error(tipMessage)
+        return  reject(res)
+      })
+    },
+    error => {
+      if (!error.response) {
+        Message.error('请检查 API 是否异常')
+        console.log('error', error)
+      }
+
+      // 判断请求超时
+      if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
+        Message.warning('请求超时')
+      }
+      return Promise.reject(error)
+    },
+)
 
 // 导出常用函数
 

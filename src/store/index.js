@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 // 创建一个新的 store 实例
 
+
 Vue.use(Vuex)
 const store = new Vuex.Store({
     state () {
@@ -22,7 +23,13 @@ const store = new Vuex.Store({
         },
         saveAllBlog(state,blogs){
             state.Blogs=blogs
+        },
+        setToken(state,token) {
+            localStorage.setItem("token",JSON.stringify(token))
         }
+
+    },
+    actions:{
 
     }
 })

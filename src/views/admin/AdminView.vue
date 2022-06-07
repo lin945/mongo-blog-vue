@@ -1,10 +1,10 @@
 <template>
   <el-container>
     <el-header>
-      <MainHeader></MainHeader>
+      <AdminHeader></AdminHeader>
     </el-header>
     <el-main class="main_root">
-      <keep-alive exclude="Blog">
+      <keep-alive >
         <router-view/>
       </keep-alive>
     </el-main>
@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import MainHeader from "@/components/MainHeader";
 import MainFooter from "@/components/MainFooter";
+import AdminHeader from "@/components/AdminHeader";
 
 export default {
   name: "AdminView",
   components: {
-    MainHeader,
+    AdminHeader,
     MainFooter
   },
 }

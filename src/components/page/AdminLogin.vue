@@ -1,8 +1,6 @@
 <template>
-  <el-row>
-
-    <el-col :span="8">
-      <el-form ref="lform" :model="form" :rules="rules" label-width="5em">
+  <div class="container">
+      <el-form size="middi" ref="lform" :model="form" :rules="rules" label-width="5em">
         <el-form-item prop="user" label="用户名">
           <el-input v-model="form.user"></el-input>
         </el-form-item>
@@ -10,15 +8,16 @@
           <el-input v-model="form.pass"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit('lform')">立即登录</el-button>
+          <el-button size="small" type="primary" @click="onSubmit('lform')">立即登录</el-button>
         </el-form-item>
       </el-form>
-    </el-col>
-
-  </el-row>
+  </div>
 </template>
 
 <script>
+import AdminModel from "@/model/AdminModel";
+import storage from "@/store/storage";
+import { Loading } from 'element-ui';
 export default {
   name: "AdminLogin",
   data: function () {
@@ -41,10 +40,21 @@ export default {
   },
   methods:{
     onSubmit(ff) {
+      let loading = Loading.service({ fullscreen: true });
+      let user=this.form.user
+      let pass=this.form.pass
+      let t=this
       this.$refs[ff].validate((valid) => {
         if (valid) {
-          console.log("ok");
-
+          let login = AdminModel.login(user,pass);
+          login.then((value => {
+            storage.saveToken(value.data)
+            loading.close()
+            t.$router.push("/admin/blogs")
+          }),(e)=>{
+            loading.close()
+            console.log(e)
+          })
         } else {
 
           return false;
@@ -56,8 +66,8 @@ export default {
 </script>
 
 <style scoped>
-.empty_div {
-  width: 50px;
-  min-width: 50px;
+.container{
+  display: flex;
+  justify-content: center;
 }
 </style>
