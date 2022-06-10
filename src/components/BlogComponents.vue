@@ -19,7 +19,7 @@
         </div>
       </el-col>
       <!--                右边图片-->
-      <el-col class="blog-img" :span="8" :xs="0">
+      <el-col class="blog-img" :span="8" :xs="0" v-if="blogdata.img">
         <div class="r-img">
           <div class="hei"></div>
           <el-image

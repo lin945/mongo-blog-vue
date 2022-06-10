@@ -4,7 +4,7 @@
       <AdminHeader></AdminHeader>
     </el-header>
     <el-main class="main_root">
-      <keep-alive >
+      <keep-alive exclude="AdminEdit">
         <router-view/>
       </keep-alive>
     </el-main>

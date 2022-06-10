@@ -3,7 +3,7 @@
  */
 import axios from 'axios'
 import { Message } from 'element-ui';
-
+import storage from "@/store/storage";
 const config = {
   baseURL: process.env.VUE_APP_BASE_URL || '',
   timeout: 5 * 1000, // 请求超时时间设置
@@ -32,7 +32,10 @@ _axios.interceptors.request.use(
       //     reqConfig.headers.Authorization = accessToken
       //   }
       // }
-
+      if (reqConfig.url!=null&&reqConfig.url.startsWith("/admin/")){
+        reqConfig.headers.Authorization=storage.getToken()
+        console.log(reqConfig)
+      }
       return reqConfig
     },
     error => Promise.reject(error),
@@ -48,28 +51,6 @@ _axios.interceptors.response.use(
       return new Promise( (resolve, reject) => {
         let tipMessage = ''
         // const { url } = res.config
-
-        // refresh_token 异常，直接登出
-        // if (refreshTokenException(code)) {
-        //   setTimeout(() => {
-        //     store.dispatch('loginOut')
-        //     const { origin } = window.location
-        //     window.location.href = origin
-        //   }, 1500)
-        //   return resolve(null)
-        // }
-        // // assessToken相关，刷新令牌
-        // if (code === 10041 || code === 10051) {
-        //   const cache = {}
-        //   if (cache.url !== url) {
-        //     cache.url = url
-        //     const refreshResult = await _axios('cms/user/refresh')
-        //     saveAccessToken(refreshResult.access_token)
-        //     // 将上次失败请求重发
-        //     const result = await _axios(res.config)
-        //     return resolve(result)
-        //   }
-        // }
 
         // 弹出信息提示的第一种情况：直接提示后端返回的异常信息（框架默认为此配置）；
         // 特殊情况：如果本次请求添加了 handleError: true，用户自行通过 try catch 处理，框架不做额外处理

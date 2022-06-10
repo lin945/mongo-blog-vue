@@ -1,43 +1,17 @@
 <template>
   <div class="el-container">
-    <mavon-editor v-model="context" :toolbars="toolbars" />
+      <div v-on:click="onclick1">1111</div>
   </div>
 </template>
 
 <script>
 export default {
 name: "AdminBlogs",
-  data:function () {
-    return {
-      context:"",
-      toolbars: {
-        bold: true, // 粗体
-        italic: true, // 斜体
-        header: true, // 标题
-        underline: true, // 下划线
-        mark: true, // 标记
-        superscript: true, // 上角标
-        quote: true, // 引用
-        ol: true, // 有序列表
-        link: true, // 链接
-        imagelink: true, // 图片链接
-        help: true, // 帮助
-        code: true, // code
-        subfield: true, // 是否需要分栏
-        fullscreen: true, // 全屏编辑
-        readmodel: true, // 沉浸式阅读
-        undo: true, // 上一步
-        trash: true, // 清空
-        save: true, // 保存（触发events中的save事件）
-        navigation: true // 导航目录
-      }
-    }
-  },
-  methods:{
-    saveBlog() {
-      console.log("aaa")
-    }
+methods:{
+  onclick1() {
+    this.$router.push({name: 'edit', query: {id: 123456}})
   }
+}
 }
 </script>
 

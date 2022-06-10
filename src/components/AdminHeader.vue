@@ -4,8 +4,8 @@
       <h4>title</h4>
     </div>
     <nav class="head-menu">
-      <router-link to="/admin/list" exact-active-class="active-a" >博客列表</router-link>
-      <router-link to="/admin/blogs" active-class="active-a">新建</router-link>
+      <router-link to="/admin/blogs" exact-active-class="active-a" >博客列表</router-link>
+      <router-link to="/admin/edit" active-class="active-a">新建</router-link>
       <router-link to="/admin/friend" active-class="active-a">友链</router-link>
       <router-link to="/home" active-class="active-a">进入首页</router-link>
     </nav>

@@ -8,6 +8,7 @@ import NotFound from "@/views/NotFound";
 import AdminLogin from "@/components/page/AdminLogin";
 import AdminBlogs from "@/components/page/AdminBlogs";
 import store from "@/store/storage";
+import AdminEdit from "@/components/page/AdminEdit";
 Vue.use(VueRouter)
 
 const routes = [
@@ -69,6 +70,15 @@ const routes = [
                 mata: {
                     transition: true
                 }
+            },
+            {
+                path: 'edit',
+                name: 'edit',
+                component: AdminEdit,
+                props: route => ({id: route.query.id}),
+                mata: {
+                    transition: true
+                }
             }
         ]
     },
@@ -91,22 +101,15 @@ const router = new VueRouter({
 
 function isLogin(){
     let token =store.getToken()
-    if (token==null||!(token instanceof String)){
-        return false
-    }
-    return true
+    return token != null
 }
 router.beforeEach((to, from, next) => {
     //登录校验
-    if (to.path.startsWith("/admin")){
-        if (isLogin()) {
-            next({path:'/login'})
-        }
+    if (to.path.startsWith("/admin")&&!isLogin()){
+        next({path:'/login'})
     }
-    if (to.path === "/login") {
-        if (isLogin()) {
-            next({path:"/admin"})
-        }
+    else if (to.path === "/login"&&isLogin()) {
+        next({path:"/admin"})
     }
     next();
 })

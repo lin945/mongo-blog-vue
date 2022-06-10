@@ -3,12 +3,11 @@
     <el-header><MainHeader></MainHeader></el-header>
       <el-main class="main_root">
 <!--        排除博客详情组件，否则组件不刷新-->
-
+        <transition name="bounce">
           <keep-alive exclude="MainBlogInfo">
-            <transition name="bounce">
             <router-view/>
-            </transition>
           </keep-alive>
+        </transition>
       </el-main>
     <el-footer class="footer-el"><MainFooter></MainFooter></el-footer>
   </el-container>

@@ -86,7 +86,6 @@ export default {
     loadBlogs(page = 1) {
       if(page>0)page=page-1
       BlogModel.getAllBlog(page).then((data) => {
-        console.log(data);
         this.blogs = data.data.content
         this.pageCount=data.data.totalPages
         this.blogTotal=data.data.totalElements
@@ -94,7 +93,6 @@ export default {
         this.loading = false
       }).catch((e) => {
         //异常处理
-        console.log(e)
         this.loading=false
         this.$notify.error({
           title: '错误',

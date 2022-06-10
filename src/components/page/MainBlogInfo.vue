@@ -18,8 +18,7 @@
 
 
       <section class="post-main">
-        <h1 id="title-1">写在前面</h1>
-        <div v-html="blog.content"/>
+        <div class="content markdown-body" v-html="blog.content"></div>
       </section>
       <!--      底部-->
       <section class="post-author">
@@ -62,6 +61,7 @@
 
 <script>
 import BlogModel from "@/model/BlogModel";
+
 export default {
   name: "MainBlogInfo",
   components: {},
@@ -117,11 +117,15 @@ export default {
       });
     },
     loadBlog() {
+      let _this=this
       let id = this.id;
       console.log(id)
       BlogModel.getBlogById(id).then(data=>{
         console.log(data)
         this.blog=data.data
+        const MarkdownIt = require('markdown-it'),
+            md = new MarkdownIt();
+        _this.blog.content = md.render(_this.blog.content)
       })
     }
   }
@@ -166,7 +170,7 @@ export default {
 }
 
 .blogInfo {
-  padding: 3.2em 1em;
+  padding: 3.2em .5em;
   background: var(--light-main-background);
 }
 
